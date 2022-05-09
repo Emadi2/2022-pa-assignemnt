@@ -1,0 +1,46 @@
+---
+title: "Assign1"
+output: html_document
+date: '2022-05-09'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1)
+
+R           O1           X1           O2
+
+R - Any random Employee selected to have their hapiness looked at.
+
+O1 - Observation made before the company wide raise
+
+X1 - Giving the employee the 10% raise
+
+O2 - Observation made after the company wide raise.
+
+The above assumes a direct correlation between the employee having a higher 
+salary and being happier. An employee could be happier for reasons other than 
+the raise but this study would assume it to be directly due to the raise.
+
+This study also lacks a control group. Google cannot raise the salary of half 
+the staff and keep the other half the same least they risk discontent from their
+employees. As such, there is no opportunity to see if the increased happiness 
+will come from the raise or not.
+
+
+
+2)
+
+Training under Individual A had on average of -0.09 lower than Individual 0
+Training under Individual B had an average of .04 higher than Individual 0
+
+For those under Individual A, 46.5% performed better with an average increase of
+1.13, while 53.5% performed worst with an average decrease of 1.15.
+
+For those under individual B, 50.4% performed better with an average increase of 
+1.19, while 49.6% performed worst with an average decrease of 1.12.
+
+Under B, more people had the opportunity to improve performance, and on average 
+those who improved performance did so at a higher level than under A.
