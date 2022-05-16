@@ -1,0 +1,62 @@
+---
+title: "Assignment2"
+output: github_document
+---
+
+
+```{r setup, include=FALSE}
+```
+
+
+```{r}
+
+data_path <- "C:/Users/Admin/Desktop/STATS/"
+
+setwd(data_path)
+
+# load the necessary packages ("extensions")
+library(tidyverse)
+library(lubridate) # to work with dates
+library(skimr) # for summaries of data
+library(arrow) # to be able to load data in the .parquet format
+# read application data
+
+app_data_sample <- read_parquet(paste0(data_path,"app_data_sample.parquet"))
+
+examiner_dates <- app_data_sample %>% 
+  select(examiner_id, filing_date, appl_status_date) 
+examiner_dates
+
+examiner_dates <- examiner_dates %>% 
+  mutate(start_date = ymd(filing_date), end_date = as_date(dmy_hms(appl_status_date)))
+
+examiner_dates <- examiner_dates %>% 
+  group_by(examiner_id) %>% 
+  summarise(
+    earliest_date = min(start_date, na.rm = TRUE), 
+    latest_date = max(end_date, na.rm = TRUE),
+    tenure = interval(earliest_date, latest_date) %/% days(1)
+    )
+examiner_dates
+skim(examiner_dates)
+
+library(gender)
+
+examiner_gender <- app_data_sample %>% 
+ 
+  distinct(examiner_name_first) %>% 
+  do(results = gender(.$examiner_name_first, method = "ssa")) %>% 
+  unnest(cols = c(results), keep_empty = TRUE) %>% 
+  select(
+    examiner_name_first = name,
+    gender,
+    proportion_female
+  )
+
+examiner_gender
+
+Table_final <- app_data_sample %>% 
+  left_join(examiner_gender, by = "examiner_name_first")
+
+
+```
